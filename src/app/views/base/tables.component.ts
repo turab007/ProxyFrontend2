@@ -1,22 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { ProxyService } from '../../proxy.service';
 import { Proxy } from '../../proxy';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import {SwitchesComponent} from './switches.component';
+import { SwitchesComponent } from './switches.component';
 
 @Component({
   templateUrl: 'tables.component.html'
 })
 export class TablesComponent {
 
-  bsModalRef: BsModalRef;
+  // bsModalRef: BsModalRef;
   data: Proxy[];
   displayData: Proxy[];
   pages: number = 0;
   pageArray: number[];
   pageNumber: number = 1;
 
-  constructor(public proxyService: ProxyService, private modalService: BsModalService) {
+  constructor(@Inject(BsModalRef) public bsModalRef: BsModalRef, public proxyService: ProxyService, private modalService: BsModalService) {
     this.proxyService.getProxies().subscribe(res => {
       this.data = res;
       this.pages = (res.length - (res.length % 10)) / 10;
@@ -26,7 +26,8 @@ export class TablesComponent {
 
   }
 
-  openModalWithComponent() {
+  openModalWithComponent(proxy: Proxy) {
+    console.log('My daya ');
     const initialState = {
       list: [
         'Open a modal with component',
@@ -36,7 +37,7 @@ export class TablesComponent {
       ],
       title: 'Modal with component'
     };
-    this.bsModalRef = this.modalService.show(SwitchesComponent, {initialState});
+    this.bsModalRef = this.modalService.show(SwitchesComponent, { initialState });
     this.bsModalRef.content.closeBtnName = 'Close';
   }
 
