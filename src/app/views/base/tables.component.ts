@@ -1,27 +1,37 @@
-import { Component, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { ProxyService } from '../../proxy.service';
 import { Proxy } from '../../proxy';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { SwitchesComponent } from './switches.component';
+import { Router } from '@angular/router';
 
 @Component({
   templateUrl: 'tables.component.html'
 })
 export class TablesComponent {
 
-  // bsModalRef: BsModalRef;
+  bsModalRef: BsModalRef;
   data: Proxy[];
   displayData: Proxy[];
   pages: number = 0;
   pageArray: number[];
   pageNumber: number = 1;
+  totalElements;
 
-  constructor(@Inject(BsModalRef) public bsModalRef: BsModalRef, public proxyService: ProxyService, private modalService: BsModalService) {
+  constructor(public proxyService: ProxyService, private modalService: BsModalService,
+    public router: Router) {
+    this.getProxies();
+
+  }
+  getProxies() {
     this.proxyService.getProxies().subscribe(res => {
       this.data = res;
+      this.totalElements = res.length;
       this.pages = (res.length - (res.length % 10)) / 10;
       this.pageArray = new Array(this.pages);
       this.pagination(1);
+    }, error => {
+      console.log('Error');
     });
 
   }
@@ -45,6 +55,27 @@ export class TablesComponent {
     // let x = this.total / 30;
     page--;
     this.displayData = this.data.slice(page * 10, (page + 1) * 10);
+  }
+
+  delete(ip) {
+    console.log('delete', ip);
+    this.proxyService.delete(ip).subscribe((res) => {
+      this.getProxies();
+    });
+
+  }
+
+  refresh() {
+    this.proxyService.refresh().subscribe(() => {
+      console.log('Set timeout');
+      setTimeout(() => {
+
+        // this.getProxies();
+      }, 5000);
+    });
+  }
+  showTests(ip: string) {
+    this.router.navigate([`base/switches/${ip}`]);
   }
 
 }
