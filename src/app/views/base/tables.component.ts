@@ -4,6 +4,7 @@ import { Proxy } from '../../proxy';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { SwitchesComponent } from './switches.component';
 import { Router } from '@angular/router';
+import { error } from 'protractor';
 
 @Component({
   templateUrl: 'tables.component.html'
@@ -17,6 +18,8 @@ export class TablesComponent {
   pageArray: number[];
   pageNumber: number = 1;
   totalElements;
+  error = false;
+  success = false;
 
   constructor(public proxyService: ProxyService, private modalService: BsModalService,
     public router: Router) {
@@ -24,6 +27,7 @@ export class TablesComponent {
 
   }
   getProxies() {
+    this.data=[];
     this.proxyService.getProxies().subscribe(res => {
       this.data = res;
       this.totalElements = res.length;
@@ -31,7 +35,6 @@ export class TablesComponent {
       this.pageArray = new Array(this.pages);
       this.pagination(1);
     }, error => {
-      console.log('Error');
     });
 
   }
@@ -66,12 +69,20 @@ export class TablesComponent {
   }
 
   refresh() {
-    this.proxyService.refresh().subscribe(() => {
+    this.proxyService.refresh().subscribe(res => {
+      this.success = true;
       console.log('Set timeout');
       setTimeout(() => {
-
-        // this.getProxies();
+        this.success = false;
+        this.getProxies();
       }, 5000);
+    }, error => {
+      console.log('Error');
+      this.error = true;
+      setTimeout(() => {
+        this.error = false;
+      }, 5000);
+
     });
   }
   showTests(ip: string) {
