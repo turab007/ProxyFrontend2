@@ -17,20 +17,20 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'cards'
+        redirectTo: 'tables'
       },
       {
         path: 'switches/:ip',
         component: SwitchesComponent,
         data: {
-          title: 'Switches'
+          title: 'Url TESTS'
         }
       },
       {
         path: 'tables',
         component: TablesComponent,
         data: {
-          title: 'Tables'
+          title: 'Proxy Tables'
         }
       },
       {
