@@ -27,7 +27,7 @@ export class TablesComponent {
 
   }
   getProxies() {
-    this.data=[];
+    this.data = [];
     this.proxyService.getProxies().subscribe(res => {
       this.data = res;
       this.totalElements = res.length;
@@ -87,6 +87,15 @@ export class TablesComponent {
   }
   showTests(ip: string) {
     this.router.navigate([`base/switches/${ip}`]);
+  }
+
+  DoTests() {
+    this.proxyService.performBasicTest().subscribe(()=>{
+      this.getProxies();
+    },error =>{
+      this.getProxies();
+    });
+
   }
 
 }

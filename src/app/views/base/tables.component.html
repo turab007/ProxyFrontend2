@@ -9,7 +9,8 @@
           <span class="p-2">Total Elements: {{totalElements}}</span>
           <button type="button " *ngIf="error" class="btn btn-danger  p-2">Refreshed less than 10 mins ago</button>
           <button type="button " *ngIf="success" class="btn btn-success  p-2" (click)="refresh()">Successfully updated</button>
-          <button type="button " class="btn btn-primary ml-auto p-2" (click)="refresh()">Refresh</button>
+          <button type="button " class="btn btn-primary ml-auto p-2" (click)="DoTests()">Do Tests</button>
+          <button type="button " class="btn btn-primary ml-1 p-2" (click)="refresh()">Refresh</button>
         </div>
         <div class="card-body">
           <table class="table table-striped">

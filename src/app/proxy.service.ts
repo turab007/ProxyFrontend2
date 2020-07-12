@@ -34,4 +34,8 @@ export class ProxyService {
     return this.http.get(`http://localhost:4000/proxy/refresh`);
   }
 
+  public performBasicTest() {
+    return this.http.get(`http://localhost:4000/proxy/basicTest`);
+  }
+
 }
