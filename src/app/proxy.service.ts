@@ -38,4 +38,8 @@ export class ProxyService {
     return this.http.get(`http://localhost:4000/proxy/basicTest`);
   }
 
+  public getTestDate() {
+    return this.http.get('http://localhost:4000/proxy/getTestDate');
+  }
+
 }

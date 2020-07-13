@@ -1,21 +1,15 @@
 {
-  "name": "@coreui/coreui-free-angular-admin-template",
+  "name": "Proxy_Project",
   "version": "2.9.2",
-  "description": "CoreUI Free Angular 2+ Admin Template",
+  "description": "Proxy Project",
   "author": {
-    "name": "Łukasz Holeczek",
-    "url": "http://holeczek.pl",
-    "github": "https://github.com/mrholek",
-    "twitter": "https://twitter.com/lukaszholeczek"
+    "name": "Malik Affrasiab Zafar"
   },
   "contributors": [
     {
-      "name": "Andrzej Kopański",
-      "url": "https://github.com/xidedix"
+      "name": "Malik Affrasiab Zafar",
     }
   ],
-  "homepage": "https://coreui.io/angular",
-  "copyright": "Copyright 2020 creativeLabs Łukasz Holeczek",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
@@ -76,7 +70,7 @@
     "karma-jasmine": "^3.1.1",
     "karma-jasmine-html-reporter": "^1.5.3",
     "protractor": "^5.4.3",
-    "ts-node": "^8.8.2",
+     "ts-node": "^8.8.2",
     "tslint": "^6.1.1",
     "typescript": "~3.7.5"
   },

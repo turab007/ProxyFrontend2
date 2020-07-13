@@ -20,6 +20,7 @@ export class TablesComponent {
   totalElements;
   error = false;
   success = false;
+  updateTime;
 
   constructor(public proxyService: ProxyService, private modalService: BsModalService,
     public router: Router) {
@@ -29,12 +30,13 @@ export class TablesComponent {
   getProxies() {
     this.data = [];
     this.proxyService.getProxies().subscribe(res => {
+      this.getUpdateTime();
       this.data = res;
       this.totalElements = res.length;
       this.pages = (res.length - (res.length % 10)) / 10;
       this.pageArray = new Array(this.pages);
-      this.pagination(1);
-    }, error => {
+      // this.pagination(1);
+    }, () => {
     });
 
   }
@@ -76,7 +78,7 @@ export class TablesComponent {
         this.success = false;
         this.getProxies();
       }, 5000);
-    }, error => {
+    }, () => {
       console.log('Error');
       this.error = true;
       setTimeout(() => {
@@ -90,12 +92,16 @@ export class TablesComponent {
   }
 
   DoTests() {
-    this.proxyService.performBasicTest().subscribe(()=>{
+    this.proxyService.performBasicTest().subscribe(() => {
       this.getProxies();
-    },error =>{
+    }, () => {
       this.getProxies();
     });
-
+  }
+  getUpdateTime() {
+    this.proxyService.getTestDate().subscribe(res => {
+      this.updateTime = (<any>res).last_updated;
+    });
   }
 
 }
